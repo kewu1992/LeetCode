@@ -1,3 +1,5 @@
+/*
+space O(k)
 public class Solution {
         public ListNode reverseKGroup(ListNode head, int k) {
             ListNode[] temp = new ListNode[k];
@@ -21,4 +23,39 @@ public class Solution {
             }
             return finalHead.next;
         }
+}
+*/
+
+// space O(1)
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode finalHead = new ListNode(0);
+        finalHead.next = head;
+        ListNode p, tempNext, tempHead, nextHead, tempP;
+        int n = 0;
+        tempHead = finalHead;
+        while (tempHead != null){
+            p = tempHead;
+            n = 0;
+            while (p.next != null && n < k){
+                p = p.next;
+                n++;
+            }
+            if (n < k) break;
+            tempNext = p.next;
+            nextHead = tempHead.next;
+            p = tempHead.next;
+            n = 0;
+            while (n < k){
+                n++;
+                tempP = p.next;
+                p.next = tempNext;
+                tempNext = p;
+                p = tempP;
+            }
+            tempHead.next = tempNext;
+            tempHead = nextHead;
+        }
+        return finalHead.next;
+    }
 }
