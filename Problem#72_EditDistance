@@ -1,0 +1,19 @@
+public class Solution {
+    public int minDistance(String word1, String word2) {
+        int [][] ans = new int[word1.length()+1][word2.length()+1];
+        ans[0][0] = 0;
+        for (int i = 1; i < word1.length()+1; i++)
+            ans[i][0] = ans[i-1][0] + 1; // delete a character
+        for (int j = 1; j < word2.length()+1; j++)
+            ans[0][j] = ans[0][j-1] + 1; // delete a character
+        for (int i = 1; i < word1.length()+1; i++)
+            for (int j = 1; j < word2.length()+1; j++){
+                int temp = Integer.min(ans[i-1][j], ans[i][j-1]) + 1;  // insert
+                int replaceCost = ans[i-1][j-1];
+                if (word1.charAt(i-1) != word2.charAt(j-1))
+                    replaceCost++;
+                ans[i][j] = Integer.min(temp, replaceCost);
+            }
+        return ans[word1.length()][word2.length()];
+    }
+}
