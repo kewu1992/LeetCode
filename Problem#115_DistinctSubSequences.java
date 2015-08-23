@@ -22,5 +22,5 @@ public class Solution {
         }
         return ans[diff];
     }
-    
+     
 }
